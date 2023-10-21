@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Date Picker</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .date-input-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .date-input-div,
+        .date-input {
+            height: 22px;
+        }
+
+        .date-input-div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-family: monospace;
+            user-select: none;
+            background-color: white;
+            border: 1px solid black;
+            padding: 0.5em 0.3em 0.5em 0.2em;
+            font-size: 0.83rem;
+            gap: 19.667px;
+        }
+
+        .date-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <label for="date">date:</label>
+        <div class="date-input-container">
+            <div class="date-input-div">
+                <span class="date-value-label">dd/mm/yyyy</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="currentColor"
+                    class="bi bi-calendar" viewBox="0 0 16 16">
+                    <path
+                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                </svg>
+            </div>
+            <input class="date-input" type="date" id="date" name="date" />
+        </div>
+    </div>
+    <script>
+        document.querySelector(".date-input").addEventListener("change", function (event) {
+            this.closest('.date-input-container').querySelector('.date-value-label').innerText = formatDate(event.target.value);
+        });
+
+        document.querySelector(".date-input-div").addEventListener("click", function (event) {
+            event.target.closest('.date-input-container').querySelector(".date-input").showPicker();
+        });
+
+        function formatDate(input) {
+            let datePart = input.match(/\d+/g),
+                year = datePart[0],
+                month = datePart[1],
+                day = datePart[2];
+            return day + '/' + month + '/' + year;
+        }
+
+    </script>
+</body>
+
+</html>
